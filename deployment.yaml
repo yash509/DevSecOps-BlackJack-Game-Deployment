@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: pe-wa-deployment
+  name: bjack-deployment
 spec:
   replicas: 6  # Number of desired replicas
   selector:
     matchLabels:
-      app: pe-wa
+      app: bjack
   template:
     metadata:
       labels:
-        app: pe-wa
+        app: bjack
     spec:
       containers:
-      - name: pe-wa
-        image: yash5090/pe-wa:latest
+      - name: bjack
+        image: yash5090/bjack:latest
         ports:
         - containerPort: 5000
