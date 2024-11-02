@@ -10,18 +10,18 @@ pipeline {
     stages {
         stage('Checkout from Git') {                        
             steps {                                       
-                git branch: 'main', url: ''
+                git branch: 'main', url: 'https://github.com/yash509/DevSecOps-BlackJack-Game-Deployment.git'
             }
         }
 		
-		stage ('Snyk Kubernetes-Config Files Vulnerablity Scan') {
+	stage ('Snyk Kubernetes-Config Files Vulnerablity Scan') {
             steps {
-			    withCredentials([string(credentialsId: 'snyk', variable: 'snyk')]) {
+                withCredentials([string(credentialsId: 'snyk', variable: 'snyk')]) {
                 sh 'snyk auth $snyk'
                 sh 'snyk iac test deployment.yaml --report > Deployment-filevulnerabilityreport.txt || true'
                 sh 'snyk iac test service.yaml --report > Service-filevulnerabilityreport.txt || true'
-				sh 'snyk iac test nwp.yaml --report > NetworkPolicy-filevulnerabilityreport.txt || true'
-			    }
+		sh 'snyk iac test nwp.yaml --report > NetworkPolicy-filevulnerabilityreport.txt || true'
+                }
             }
         }
         
